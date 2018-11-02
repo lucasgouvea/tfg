@@ -1,0 +1,51 @@
+Para finalizar a primeira frente de desenvolvimento, falta apenas mapear as requisições da página web
+para o backend. Isso pode ser feito via AngularJS de maneira bem simples. Para exemplificar esse processo,
+utiliza-se a rota login.
+O elemento responsável por fazer a requisição de login para o backend na camada de visualização é um botão
+de login. Portanto usa-se uma diretiva do AngularJS denominada "ng-click", passando como parâmetro uma 
+função, que será chamada quando o usuário clicar no botão.
+
+*** FOTO DO BOTAO DE LOGIN ****
+
+      <div class="form-actions">
+        <button type="button" class="btn botao-controle-2" ng-click="login()">Logar</button>
+      </div>
+
+No controller da view de login, LoginController, implementa-se essa função:
+
+  $scope.login = function(){
+    self.user.name = $scope.name;
+    self.user.password = $scope.password;
+    LoginService.login(self.user)
+      .then(function(){
+          redirect();
+    });
+  }
+
+Onde $scope.name e $scope.password são referências para as caixas de texto da view. Ocorre então que o Controller
+recebe os parâmetros da view e chama uma nova função de login de uma classe denominada LoginService, onde ficam
+todos os serviços de um determinado Controller. O controller também passa como parâmetro o objeto "user", que contém
+o user.name e o user.password.
+A requisição ao backend é implementada nessa classe, usando uma API do AngularJS para requisições HTTP, denominada
+"$http". No caso deseja-se fazer uma requisição do tipo POST, logo usa-se o método $http.post dessa API.
+
+   login : function(user){
+      var deferred = $q.defer();
+      $http.post(config.backend + '/login/',user)
+        .then(function(response){
+          localStorage.setItem('authenticationToken', response.data.token);
+          localStorage.setItem('logged', 'true');
+          localStorage.setItem('usuario', user.name)
+          deferred.resolve(true);
+        },
+        function(errResponse){
+          console.log(errResponse.status);
+          deferred.resolve(true);
+        }
+      );
+    return deferred.promise;
+    }
+
+Os parâmetro passados no método post é o endereço do backend, simbolizado por config.backend concatenado com
+uma rota genérica, no caso "/login/", e o objeto user, representado em JSON. O método ".then" recebe o retorno
+da requisição com parâmetros recebido do backend em caso de sucesso, ou a mensagem de erro em caso de falha.

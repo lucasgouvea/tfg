@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Built-By: lucas
+Build-Jdk: 10.0.2
+Implementation-Title: server-template
+Implementation-Version: 0.0.2-SNAPSHOT
+Implementation-Vendor-Id: br.edu.unifei
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-URL: http://projects.spring.io/spring-boot/server-templ
+ ate/
+Created-By: Maven Integration for Eclipse
+

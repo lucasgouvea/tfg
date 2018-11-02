@@ -1,0 +1,289 @@
+<html ng-app="app">
+<head>
+  <meta charset="UTF-8">
+
+
+  <!--jQuery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">
+  </script>
+  <!--Bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+  </script>
+  <!--Fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Goudy+Bookletter+1911|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Inder" rel="stylesheet">
+  <!--Custom CSS-->
+  <link rel="styleshet" href="/app.css">
+  <title>home-automation</title>
+  <!--Bower-->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-mqtt/src/browserMqtt.js"></script>
+  <script src="bower_components/angular-mqtt/src/angular-MQTT.js"></script>
+  <!--ui-router-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+  <!--ng-storage-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+
+  <!--angularjs-->
+  <script src="bower_components/ui-bootstrap-2.5.0.js"></script>
+  <script src="app.js"></script>
+   <!-- ********** Controllers ********** -->
+  <script src="controllers/HomeController.js"></script>
+  <script src="controllers/IndexController.js" ></script>
+  <script src="controllers/ControleDeTvController.js"></script>
+  <script src="controllers/InterruptorController.js"></script>
+  <script src="controllers/SensorDeTemperaturaController.js"></script>
+  <script src="controllers/LoginController.js"></script>
+  <script src="controllers/RegisterController.js"></script>
+  <!-- ********** Models ********** -->
+  <script src="models/ControleDeTv.js"></script>
+  <script src="models/Interruptor.js"></script>
+  <!-- ********** Services ********** -->
+  <script src="services/ControleDeTvService.js"></script>
+  <script src="services/InterruptorService.js"></script>
+  <script src="services/SensorDeTemperaturaService.js"></script>
+  <script src="services/LoginService.js"></script>
+  <script src="services/RegisterService.js"></script>
+
+
+</head>
+
+<style>
+body{
+  position: relative;
+  min-height: 95vh;
+  background: linear-gradient(121deg, rgba(29, 28, 171, 0.2), rgba(0, 197, 219, 0.8)), url(static/img/home.jpg) no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Inder', sans-serif;
+  font-weight: 500;
+  color: #E4F2EC;
+}
+.teste{
+  background-color: black;
+}
+.h3, h3{
+  font-size: 30px;
+}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background-color: white;
+    background-image: none;
+    color: rgb(0, 0, 0);
+}
+.btn-primary{
+  color: #5555C9;
+  background-color: #E4F2EC;
+  border-color: white;
+  font-weight: 500;
+  font-size: 24px;
+}
+button, input, select, textarea{
+    font-size: 20px;
+    font-weight: 500;
+    color:  black;
+    border: 2px solid white;
+    border-radius: 7px;
+}
+label{
+  font-size: 24px;
+  font-weight: 500;
+  padding-right: 10px;
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; }
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  color: #FFF;
+}
+
+.nav-link-left {
+  margin-left: 15px;
+  font-size: 25px;
+  display: inline-block;
+}
+.nav-link-right {
+  font-size: 25px;
+  display: inline-block;
+  margin-right: 140px;
+}
+.nav-link-left:hover{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.nav-link-right:hover{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.nav-item {
+  font-size: 20px;
+}
+
+a{
+  color: #fff;
+}
+
+.sensores{
+  font-size: 19px;
+}
+
+.servicos{
+  border: 1px solid white;
+  border-radius: 7px;
+  background: linear-gradient(121deg,
+    rgba(119, 118, 171, 0.82), rgba(122, 197, 219, 0.72));
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.controle-de-tv {
+  font-family: 'Rammetto One', cursive;
+}
+
+
+.botao-controle-1{
+  color: rgba(29, 28, 171, 0.8);
+  border-color: rgba(29, 28, 171, 0.8);
+  border-radius: 15px 50px;
+  margin-left: 5px;
+  margin-top:  7px;
+  width: 23%;
+  height: 8%;
+}
+.botao-controle-1:hover {
+  border-color: black;
+  background-color: black;
+  color: white;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.botao-controle-2{
+  color: rgba(29, 28, 171, 0.8);
+  border-color: rgba(29, 28, 171, 0.8);
+  border-radius: 15px 50px;
+  margin-left: 5px;
+  margin-top:  25px;
+  width: 33%;
+  height: 8%;
+}
+
+.botao-controle-2:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+</style>
+
+<body class="teste" ng-controller="IndexController as ctrl">
+<div class="container">
+      <ul class="nav navbar-nav nav-link-left pull-left">
+        <li><a class="animated fadeIn" ui-sref="home">Home Automation</a></li>
+      </ul>
+      <ul class="nav navbar-nav nav-link-right pull-right">
+        <!-- Serviços -->
+        <li class="dropdown">
+          <a class="dropdown-toggle animated fadeIn" data-toggle="dropdown" href="">
+          Serviços <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <!-- Control de TV -->
+            <li><a class="nav-item" ui-sref="services.controle-de-tv"
+              ui-sref-opts="{reload: true, notify: true}">Controle de TV</a>
+            </li>
+            <!-- Interruptor -->
+            <li><a class="nav-item" ui-sref="services.interruptor"
+              ui-sref-opts="{reload: true, notify: true}">Interruptor</a>
+            </li>
+            <!-- Sensor de temperatura -->
+            <li><a class="nav-item" ui-sref="services.sensor-de-temperatura"
+              ui-sref-opts="{reload: true, notify: true}">Sensor de temperatura</a>
+            </li>
+          </ul>
+        </li>
+        <!-- Login/lougout -->
+        <li><a  class="animated fadeIn" ui-sref="login" ng-if="!logged">Login</a></li>
+        <li><a ui-sref="login({afterLogout: true})" ng-if="logged">Logout</a></li>
+        <li><a href="" ng-if="logged">usuário: {{ctrl.usuario}}</a></li>
+      </ul>
+    </div>
+  <div ui-view></div>
+</body>
+
+
+</html>
+

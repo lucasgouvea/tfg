@@ -1,0 +1,15 @@
+<div class="container servicos animated fadeIn">
+  <h3 class="text-center" style="color: #FFF;">Sensores de temperatura</h3>
+  <br><br>
+  <!-- Sensores -->
+  <div class="row" >
+    <div class="rounded col-sm-4 sensores" ng-repeat="s in ctrl.sensores"
+      ng-model="ctrl.sensores.temperatura" style="color: #FFF; ">
+      <label style="font-size: 25px;">Sensor {{s.id}}</label><br>
+      Local: {{s.local}} <br>
+      Temperatura: {{s.temperatura}}ºC
+    </div>
+  </div>
+  <button ng-click="update()">Atualizar</button>
+  <br>
+</div>

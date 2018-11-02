@@ -1,0 +1,5 @@
+start mosquitto: mosquitto
+mosquitto_pub -t 'test/topic' -m 'helloWorld'
+mosquitto_sub -v -t 'test/topic'
+
+in desktop: sudo ./xampp.desktop

@@ -1,0 +1,160 @@
+<html ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <!--Bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--Fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Dhurjati" rel="stylesheet">
+  <!--Custom CSS-->
+  <link rel="styleshet" type="text/css" href="custom.css">
+  <title>Server</title>
+  <!--Bower-->
+  <script src="bower_components/angular/angular.js"></script>
+  <!--ui-router-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+
+  <!--ng-storage-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+
+  <!--angularjs-->
+  <script src="bower_components/ui-bootstrap-2.5.0.js" />
+  <script src="app.js" />
+  <script src="home/HomeController.js" />
+  <script src="indexController.js" />
+   <!-- ********** Controllers ********** -->
+   <script src="services/controle-de-tv/ControleDeTvController.js" />
+  <script src="services/interruptor/InterruptorController.js" />
+  <script src="services/sensor-de-temperatura/SensorDeTemperaturaController.js" />
+  <script src="login/LoginController.js" />
+  <script src="register/RegisterController.js" />
+  <!-- ********** Models ********** -->
+  <!-- ********** Services ********** -->
+  <script src="services/controle-de-tv/ControleDeTvService.js" />
+  <script src="services/interruptor/InterruptorService.js" />
+  <script src="services/sensor-de-temperatura/SensorDeTemperaturaService.js" />
+  <script src="login/LoginService.js" />
+  <script src="register/RegisterService.js" />
+
+
+</head>
+
+<style type="text/css">
+
+body{
+  background-image: url("home.jpg");
+  background-position: center;
+  font-family: 'Inconsolata', monospace;
+  font-weight: 500;
+  color: #E4F2EC;
+}
+.h3, h3{
+  font-size: 30px;
+}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background-color: white;
+    background-image: none;
+    color: rgb(0, 0, 0);
+}
+.btn-primary{
+  color: #5555C9;
+  background-color: #E4F2EC;
+  border-color: white;
+  font-weight: 500;
+  font-size: 24px;
+}
+button, input, select, textarea{
+    font-size: 20px;
+    font-weight: 500;
+    border: 2px solid white;
+    border-radius: 7px;
+}
+label{
+  font-family: 'Inconsolata', monospace;
+  font-size: 24px;
+  font-weight: 500;
+  padding-right: 10px;
+}
+.container{
+  background: linear-gradient(to bottom right, #2D2D91, #3C3CA3);
+  border: 2px solid white;
+  border-radius: 7px;
+}
+.container-fluid{
+  background: linear-gradient(to bottom right, #2D2D91, #3C3CA3);
+}
+.navbar .nav > li > a {
+    color: #E4F2EC;
+}
+.navbar-default .navbar-nav .open .dropdown-menu{
+    background: linear-gradient(to bottom right, #2D2D91, #3C3CA3);
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #E4F2EC;
+}
+.nav-link-left {
+  font-family: 'Inconsolata', monospace;
+  font-size: 25px;
+  display: inline-block;
+  margin-left: 40px;
+  color: #E4F2EC;
+}
+.nav-link-right {
+  font-family: 'Inconsolata', monospace;
+  font-size: 25px;
+  display: inline-block;
+  margin-right: 140px;
+}
+.nav-item {
+  font-family: 'Dhurjati';
+  font-size: 20px;
+}
+a, a:link, a:visited{
+  color: #E4F2EC;
+}
+a:hover {
+  color: yellow;
+}
+ul{
+  color: yellow;
+}
+</style>
+
+
+<body ng-controller="IndexController as ctrl">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav nav-link-left pull-left">
+        <li><a class="nav-link" ui-sref="home">home-automation</a></li>
+      </ul>
+      <ul class="nav navbar-nav nav-link-right pull-right">
+        <!-- Serviços -->
+        <li class="dropdown">
+          <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="">
+          Serviços <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <!-- Control de TV -->
+            <li><a class="nav-item" ui-sref="services.controle-de-tv"
+              ui-sref-opts="{reload: true, notify: true}">Controle de TVr</a>
+            </li>
+            <!-- Interruptor -->
+            <li><a class="nav-item" ui-sref="services.interruptor"
+              ui-sref-opts="{reload: true, notify: true}">Interruptor</a>
+            </li>
+            <!-- Sensor de temperatura -->
+            <li><a class="nav-item" ui-sref="services.sensor-de-temperatura"
+              ui-sref-opts="{reload: true, notify: true}">Sensor de Temperatura</a>
+            </li>
+          </ul>
+        </li>
+        <!-- Login/lougout -->
+        <li><a ui-sref="login" ng-if="!logged">login</a></li>
+        <li><a ui-sref="login({afterLogout: true})" ng-if="logged">Logout</a></li>
+        <li><a href="" ng-if="logged">usuário: {{ctrl.usuario}}</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div ui-view></div>
+</body>
+</html>

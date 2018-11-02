@@ -1,0 +1,71 @@
+<section>
+    <img ng-src="/img/body.jpg"></img>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><span class="lead">Specific Album </span></div>
+        <div class="panel-body">
+            <div class="formcontainer">
+                <div class="alert alert-success" role="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
+                <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
+
+                <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
+                    <input type="hidden" ng-model="ctrl.album.id" />
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 control-lable" for="albumname">Name</label>
+                            <div class="col-md-7">
+                                <input type="text" ng-model="ctrl.album.name" id="albumname" class="username form-control input-sm" placeholder="Enter your album" required ng-minlength="3"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-actions floatRight">
+                            <input type="submit"  value="{{!ctrl.album.id ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine">
+                            <button type="button" ng-click="ctrl.render()" class="btn btn-warning btn-sm">Reset Form</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><span class="lead">List of Albums </span></div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th width="100"></th>
+                        <th width="100"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="a in ctrl.getAllAlbums()">
+                        <td>{{a.id}}</td>
+                        <td>{{a.name}}</td>
+                        <td><button type="button" ng-click="ctrl.editAlbum(a.id)" class="btn btn-success custom-width">Edit</button></td>
+                        <td><button type="button" ng-click="ctrl.removeAlbum(a.id)" class="btn btn-danger custom-width">Remove</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- ShowScreenshot -->
+    <div class="row">
+        <button ng-click=clickShowImage($event)>
+          Show ScreenShot
+        </button>
+    </div>
+    <div class="panel-body" ng-show = showImage>
+        TEXTOOOOOOOOOO
+
+        <img ng-src = "src/main/resources/static/images/image.png">
+    </div>
+</section>
