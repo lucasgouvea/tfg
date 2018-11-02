@@ -2,9 +2,8 @@
 
 angular.module('app').factory('Interruptor', function(){
 
-    function Interruptor(id, local, ligado){
+    function Interruptor(id, ligado){
         this.id = id;
-        this.local = local;
         this.ligado = ligado;
     }
 

@@ -5,7 +5,8 @@ angular.module('app').factory('InterruptorService',
   function($http, $q, $localStorage, $state, config){
 
   var factory = {
-    createItem: createItem,
+    post: post,
+    getInitial : getInitial
   };
 
   var header = {headers: {
@@ -14,10 +15,23 @@ angular.module('app').factory('InterruptorService',
 
   return factory;
 
-  function createItem(item, model) {
-
+  function post(item) {
     var deferred = $q.defer()
-    $http.post(config.backend + '/' + model + '/', item, header)
+    $http.post("http://localhost:1028/broker-web/", item, header)
+      .then(
+          function(response){
+            deferred.resolve(response)
+          },
+          function(err){
+            deferred.reject(err)
+          }
+      )
+    return deferred.promise
+  }
+
+    function getInitial() {
+    var deferred = $q.defer()
+    $http.get("http://localhost:1028/broker/", header)
       .then(
           function(response){
             deferred.resolve(response)

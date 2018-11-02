@@ -9,9 +9,19 @@ angular.module('app').controller('InterruptorController',
   $scope.float = /^[0-9]+[.]?[0-9]+$/;
   $scope.time = /^[0-9][0-9][:][0-9][0-9]$/;
 
-  self.interruptor = new Interruptor(1, 'interruptor', true)
+  self.interruptor = new Interruptor(1, true)
   self.interruptores = [self.interruptor]
 
+
+  InterruptorService.getInitial().then(function(response){
+    self.interruptor.ligado = response.data
+  })
+
+
+  $scope.change = function (){
+      self.interruptor.ligado = !self.interruptor.ligado
+      InterruptorService.post(self.interruptor)    
+    } 
 
 /*
   self.i1 = new Interruptor(1, 'Sala', true);
@@ -22,7 +32,7 @@ angular.module('app').controller('InterruptorController',
   self.interruptores = [self.i1, self.i2, self.i3]
 */
 
-  console.log(document)
+
 
 }]);
 

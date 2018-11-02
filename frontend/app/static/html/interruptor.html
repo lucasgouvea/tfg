@@ -2,12 +2,11 @@
     <h3 class="text-center">Interruptores</h3>
   <!-- Interruptores -->
   <div class="row" >
-    <div class="rounded col-sm-4 sensores" ng-repeat="i in ctrl.interruptores"
-      ng-model="ctrl.interruptores.ligado" style="color: #FFF;">
+    <div class="rounded col-sm-4 sensores" 
+       style="color: #FFF;">
         <label style="font-size: 25px;">Interruptor {{i.id}}</label><br>
-        Local: {{i.local}} <br>
         <label class="switch" style="text-align: center;">
-            <input type="checkbox" name="checkbox" ng-model="i.ligado">
+            <input type="checkbox" name="checkbox" ng-click=change()>
             <span class="slider round"></span>
         </label>
     </div>

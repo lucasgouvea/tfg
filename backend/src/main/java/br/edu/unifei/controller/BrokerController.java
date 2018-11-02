@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-
+import br.edu.unifei.model.Interruptor;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 @RestController
@@ -26,18 +24,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class BrokerController {
 
     public static final Logger logger = LoggerFactory.getLogger(BrokerController.class);
-    public String _message = null;
+    public Interruptor _interruptor = new Interruptor(1, false);
     
     @RequestMapping(value = "/broker/", method = RequestMethod.POST)
     public ResponseEntity<String> brokerListener(@RequestBody String message) throws IOException {
-    	/*
-    	logger.info("Recebendo token de autenticação: " + authenticationToken)	;
-    	
-    	if(!isAuthenticated(authenticationToken)) { return new ResponseEntity(HttpStatus.FORBIDDEN); }
-    	*/
-    	
-        logger.info(message);
-        _message = message;
+
+    	if(message.compareTo("off=") == 0) {
+    		logger.info("Off");
+    		_interruptor.setLigado(false);
+    	} else {
+    		logger.info("On");
+    		_interruptor.setLigado(true);
+    	}
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -49,22 +47,27 @@ public class BrokerController {
     	if(!isAuthenticated(authenticationToken)) { return new ResponseEntity(HttpStatus.FORBIDDEN); }
     	*/
     	
-    	String message = "{ \"message:\" : " + _message + " }";
+    	String message = String.valueOf(_interruptor.isLigado());
         return new ResponseEntity(message, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/broker-web/", method = RequestMethod.POST)
-    public ResponseEntity<String> webPost(@RequestBody String webMessage) throws IOException, MqttException {
+    public ResponseEntity<String> webPost(@RequestBody Interruptor interruptor) throws IOException, MqttException {
     	/*
     	logger.info("Recebendo token de autenticação: " + authenticationToken)	;
     	
     	if(!isAuthenticated(authenticationToken)) { return new ResponseEntity(HttpStatus.FORBIDDEN); }
     	*/
-        logger.info(webMessage);
+    	String payload;
+    	if(interruptor.isLigado()) {
+    		payload = "on";
+    	} else {
+    		payload = "off";
+    	}
     	MqttClient client = new MqttClient("tcp://localhost:1883", MqttClient.generateClientId());
     	client.connect();
     	MqttMessage mqttMessage = new MqttMessage();
-    	mqttMessage.setPayload(webMessage.getBytes());
+    	mqttMessage.setPayload(payload.getBytes());
     	client.publish("iot/interruptor", mqttMessage);
     	client.disconnect();
     	return new ResponseEntity(HttpStatus.OK);
