@@ -65,7 +65,7 @@ public class BrokerController {
     	client.connect();
     	MqttMessage mqttMessage = new MqttMessage();
     	mqttMessage.setPayload(webMessage.getBytes());
-    	client.publish("test/topic", mqttMessage);
+    	client.publish("iot/interruptor", mqttMessage);
     	client.disconnect();
     	return new ResponseEntity(HttpStatus.OK);
     }
